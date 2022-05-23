@@ -15,28 +15,39 @@
   <script type="text/babel">
     function App() {
       // useState는 array를 제공한다. 첫번째 element가 현재의 값이 된다.
-      const [minutes, setMinutes] = React.useState();
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped] = React.useState(false);
       const onChange = (event) => {
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
       };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        reset();
+        setFlipped((current) => !current)
+      }
       return (
         <div>
           <h1>Super Converter</h1>
           <label for="minutes">Minutes</label>
           <input
-            value={minutes}
+            value={flipped ? amount * 60 : amount}
             id="minutes"
             placeholder="Minutes"
             type="number"
             onChange={onChange}
+            disabled={flipped}
           />
           <label for="hours">Hours</label>
           <input 
-            value={minutes / 60}
+            value={flipped ? amount : Math.round(amount / 60)}
             id="hours" 
             placeholder="Hours"
             type="number" 
+            onChange={onChange}
+            disabled={!flipped}
           />
+          <button onClick={reset}>reset</button>
+          <button onClick={onFlip}>flip</button>
         </div>
       );
     }
