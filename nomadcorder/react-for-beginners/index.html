@@ -16,8 +16,8 @@
     function App() {
       // useState는 array를 제공한다. 첫번째 element가 현재의 값이 된다.
       const [minutes, setMinutes] = React.useState();
-      const onChange = () => {
-        console.log("somebody wrote");
+      const onChange = (event) => {
+        setMinutes(event.target.value);
       };
       return (
         <div>
@@ -28,10 +28,15 @@
             id="minutes"
             placeholder="Minutes"
             type="number"
-            onChange={}
+            onChange={onChange}
           />
           <label for="hours">Hours</label>
-          <input id="hours" placeholder="Hours" />
+          <input 
+            value={minutes / 60}
+            id="hours" 
+            placeholder="Hours"
+            type="number" 
+          />
         </div>
       );
     }
